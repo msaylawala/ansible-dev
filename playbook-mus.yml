@@ -1,0 +1,24 @@
+name:   morning challenge
+hosts:  renamed,!taz
+gather_facts: no # by default, yes!
+connection: ssh #by default, ssh!
+become: true
+
+ vars:
+         usernames:
+                 mustafa
+                 sameer
+                 patrick
+tasks:
+     - name: Ensure group exists
+       ansible.builtin.group:
+               name: funkytown
+               state: present
+
+      -name: Add the user
+      become: yes
+      loop: "{{ username}}"
+      ansible.builtin.user:
+              name: "{{username}}"
+              group: funkytown
+
